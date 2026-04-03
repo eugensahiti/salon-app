@@ -18,7 +18,7 @@ jobs:
         run: npx cap sync ios
       - name: Create Unsigned IPA
         run: |
-          xcodebuild -workspace ios/App/App.xcodeproj -scheme App -configuration Release -archivePath App.xcarchive archive CODE_SIGNING_ALLOWED=NO
+          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release -archivePath App.xcarchive archive CODE_SIGNING_ALLOWED=NO
           mkdir -p Payload
           cp -r App.xcarchive/Products/Applications/App.app Payload/
           zip -r SalonApp.ipa Payload
