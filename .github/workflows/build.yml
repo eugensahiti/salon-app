@@ -1,0 +1,28 @@
+name: Build iOS IPA
+on: [push]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install Deps
+        run: npm install
+      - name: Build Web App
+        run: npm run build
+      - name: Capacitor Sync
+        run: npx cap sync ios
+      - name: Create Unsigned IPA
+        run: |
+          xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release -archivePath App.xcarchive archive CODE_SIGNING_ALLOWED=NO
+          mkdir -p Payload
+          cp -r App.xcarchive/Products/Applications/App.app Payload/
+          zip -r SalonApp.ipa Payload
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SalonApp-IPA
+          path: SalonApp.ipa
