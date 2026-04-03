@@ -186,43 +186,45 @@
 
 
 
-/* ============================================================
-   MOBILE OVERRIDES (THE "NATURAL" LOOK)
-   ============================================================ */
+
+
 @media (max-width: 600px) {
-  
-  /* 1. Stop things from hiding behind the Notch and Home Bar */
-  body {
-    padding-top: env(safe-area-inset-top) !important;
-    padding-bottom: env(safe-area-inset-bottom) !important;
+  /* 1. Shrink the Header text so it doesn't wrap horridly */
+  .font-display.gold-shimmer, h1, h2 {
+    font-size: 22px !important; /* Forces the inline 32px to shrink */
+    letter-spacing: 1px !important;
+    text-align: center !important;
   }
 
-  /* 2. Force the navigation to stack instead of being a squashed row */
-  /* We use [class*="nav"] to try and find your navbar automatically */
-  nav, header, [class*="nav"], [class*="header"] {
-    flex-direction: column !important;
+  /* 2. Fix the Navigation Bar */
+  /* This targets the container holding PANELI and TRANSAKSIONET */
+  nav, [class*="nav"], header {
+    flex-wrap: wrap !important; /* Allows items to drop to a new line if needed */
+    justify-content: center !important;
+    padding-top: calc(var(--sat) + 10px) !important; /* Pushes text below the Notch */
     height: auto !important;
-    gap: 8px !important;
+    gap: 10px !important;
   }
 
-  /* 3. Stack the dashboard containers (Stafi, Sinjale, etc.) */
-  main, .container, [class*="content"], [class*="grid"] {
-    display: flex !important;
+  /* 3. Stack the Dashboard Cards */
+  /* If your cards are in a div, this forces them to sit on top of each other */
+  div[style*="display: flex"], .main-container {
     flex-direction: column !important;
-    padding: 16px !important;
+    align-items: center !important;
+    padding: 10px !important;
   }
 
-  /* 4. Make all your cards and boxes take up the full width */
-  div[class*="card"], div[class*="box"], div[class*="item"] {
+  /* 4. Make all Cards 100% width */
+  div[style*="width"], .card, .stat-box {
+    width: 95% !important; /* Fits perfectly inside the screen edges */
+    margin: 10px auto !important;
+  }
+
+  /* 5. Fix the Arkiva / Transactions table */
+  /* Tables are the hardest on mobile. We make them scrollable. */
+  .table-container, table {
+    display: block !important;
+    overflow-x: auto !important;
     width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    margin-bottom: 16px !important;
-    min-width: 0 !important;
-  }
-
-  /* 5. Scale down the massive Euro numbers so they fit the screen */
-  [class*="total"], [class*="revenue"], h1, h2 {
-    font-size: 1.8rem !important;
   }
 }

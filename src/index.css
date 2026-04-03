@@ -1,4 +1,21 @@
 :root {
+  --sat: env(safe-area-inset-top);
+  --sab: env(safe-area-inset-bottom);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Stops the horizontal shaking */
+  background-color: #0c0c0c; /* Match your app background */
+}
+
+
+
+
+:root {
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
