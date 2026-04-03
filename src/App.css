@@ -188,43 +188,86 @@
 
 
 
+
+
 @media (max-width: 600px) {
-  /* 1. Shrink the Header text so it doesn't wrap horridly */
-  .font-display.gold-shimmer, h1, h2 {
-    font-size: 22px !important; /* Forces the inline 32px to shrink */
+  /* 1. FORCE HEADER TEXT TO SHRINK */
+  .font-display.gold-shimmer, h1, h2, [style*="fontSize: 32"] {
+    font-size: 22px !important; 
     letter-spacing: 1px !important;
-    text-align: center !important;
+    text-align: left !important;
+    width: auto !important;
   }
 
-  /* 2. Fix the Navigation Bar */
-  /* This targets the container holding PANELI and TRANSAKSIONET */
-  nav, [class*="nav"], header {
-    flex-wrap: wrap !important; /* Allows items to drop to a new line if needed */
-    justify-content: center !important;
-    padding-top: calc(var(--sat) + 10px) !important; /* Pushes text below the Notch */
-    height: auto !important;
-    gap: 10px !important;
+  /* 2. HIDE OLD NAVIGATION BUTTONS */
+  /* This kills the original PANELI/TRANSAKSIONET buttons so only the Cabinet Icon shows */
+  nav button:not(.mobile-menu-btn), 
+  .nav-links, 
+  header > button:not(.mobile-menu-btn),
+  [style*="display: flex"] > button:not(.mobile-menu-btn) {
+    display: none !important;
   }
 
-  /* 3. Stack the Dashboard Cards */
-  /* If your cards are in a div, this forces them to sit on top of each other */
+  /* 3. STACK THE DASHBOARD CARDS */
+  /* This forces side-by-side boxes to stack vertically */
   div[style*="display: flex"], .main-container {
     flex-direction: column !important;
     align-items: center !important;
     padding: 10px !important;
+    display: flex !important;
   }
 
-  /* 4. Make all Cards 100% width */
+  /* 4. FORCE CARDS TO FULL WIDTH */
+  /* This stops the boxes from being tiny or squashed */
   div[style*="width"], .card, .stat-box {
-    width: 95% !important; /* Fits perfectly inside the screen edges */
-    margin: 10px auto !important;
+    width: 100% !important; 
+    max-width: 100% !important;
+    margin: 10px 0 !important;
+    min-width: 0 !important;
   }
 
-  /* 5. Fix the Arkiva / Transactions table */
-  /* Tables are the hardest on mobile. We make them scrollable. */
-  .table-container, table {
+  /* 5. CABINET OVERLAY STYLES */
+  .mobile-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.95) !important;
+    z-index: 10000 !important;
+  }
+
+  /* 6. CABINET DRAWER STYLES */
+  .mobile-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 280px !important;
+    height: 100vh !important;
+    background: #111 !important;
+    border-left: 2px solid gold !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 60px 20px !important;
+    gap: 15px !important;
+    z-index: 10001 !important;
+  }
+
+  /* 7. CABINET BUTTONS */
+  .mobile-drawer button {
+    background: #1a1a1a !important;
+    color: gold !important;
+    padding: 18px !important;
+    border-radius: 12px !important;
+    text-align: left !important;
+    border: 1px solid #333 !important;
+    font-size: 18px !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* 8. TABLE / ARKIVA FIX */
+  .table-container, table, .arkiva-container {
     display: block !important;
     overflow-x: auto !important;
     width: 100% !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 }

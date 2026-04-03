@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
+const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 // ─── INITIAL DATA ─────────────────────────────────────────────────────────────
 const INITIAL_WORKERS = [
   { id: "w1", name: "Avdyl Sylaj", pin_code: "1234", role: "Owner", status: "active" },
@@ -242,7 +244,45 @@ function PinLogin({ onLogin, workers }) {
       <div className="fade-up glass-card" style={{ padding: "48px 40px", borderRadius: 16, width: 340, display: "flex", flexDirection: "column", alignItems: "center", gap: 32 }}>
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: 36, marginBottom: 8 }}>✂</div>
-          <h1 className="font-display gold-shimmer" style={{ fontSize: 32, fontWeight: 700, letterSpacing: 2 }}>AS Hair Salon</h1>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+  <h1 className="font-display gold-shimmer" style={{ fontSize: 32, fontWeight: 700 }}>
+    AS Hair Salon
+  </h1>
+
+  <button 
+    className="mobile-menu-btn"
+    onClick={() => setIsMenuOpen(!isMenuOpen)}
+  >
+    {/* Cabinet Icon */}
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="gold" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 8H3V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2zM21 14H3v-2a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2zM21 20H3v-2a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2z" />
+    </svg>
+  </button>
+{isMenuOpen && (
+  <div className="mobile-overlay" onClick={() => setIsMenuOpen(false)}>
+    <div className="mobile-drawer" onClick={e => e.stopPropagation()}>
+      <h3 style={{ color: 'gold', marginBottom: '20px' }}>Shërbimet</h3>
+      
+      {/* These now use setView to match your App.jsx logic */}
+      <button onClick={() => { setView('dashboard'); setIsMenuOpen(false); }}>📊 Paneli</button>
+      <button onClick={() => { setView('transactions'); setIsMenuOpen(false); }}>💸 Transaksionet</button>
+      <button onClick={() => { setView('stafi'); setIsMenuOpen(false); }}>👥 Stafi</button>
+      <button onClick={() => { setView('arkiva'); setIsMenuOpen(false); }}>📦 Arkiva</button>
+      
+      <button 
+        className="close-btn" 
+        style={{ marginTop: 'auto', border: '1px solid gold', color: 'gold' }} 
+        onClick={() => setIsMenuOpen(false)}
+      >
+        Mbyll
+      </button>
+    </div>
+  </div>
+)}
+
+
+
+</div>
           <p style={{ color: "var(--text-3)", fontSize: 12, letterSpacing: "0.15em", marginTop: 4 }}>OPERACIONET E BRENDSHME</p>
         </div>
         <div className="gold-line" style={{ width: "100%" }} />
