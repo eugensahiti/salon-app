@@ -1,9 +1,5 @@
 {
   "appId": "com.salon.app",
   "appName": "Salon App",
-  "webDir": "dist",
-  "server": {
-    "url": "http://192.168.178.44:5173",
-    "cleartext": true
-  }
+  "webDir": "dist"
 }
