@@ -105,8 +105,8 @@ const GlobalStyles = () => (
       --nav-h:56px;
     }
     *{box-sizing:border-box;margin:0;padding:0;}
-    html,body{height:100%;overscroll-behavior:none;}
-    body{background:var(--ink);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
+    html,body,#root{height:100%;overscroll-behavior:none;}
+    body{background:var(--ink);color:var(--text);font-family:'Syne',sans-serif;-webkit-font-smoothing:antialiased;}
     .font-display{font-family:'Cormorant Garamond',serif;}
     .font-mono{font-family:'Syne Mono',monospace;}
     ::-webkit-scrollbar{width:3px;}
@@ -1395,9 +1395,9 @@ export default function App() {
   return (
     <>
       <GlobalStyles />
-      <div style={{ minHeight:"100vh", background:"var(--ink)" }}>
+      <div style={{ height:"100dvh", display:"flex", flexDirection:"column", background:"var(--ink)", overflow:"hidden" }}>
         <TopNav user={user} onLogout={handleLogout} view={view} setView={setView} />
-        <div style={{ overflowY:"auto", height:"calc(100vh - var(--nav-h) - (var(--nav-h) * 0.42))" }}>
+        <div style={{ flex:1, overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain" }}>
           {renderView()}
         </div>
         {/* Worker bottom nav */}
