@@ -158,14 +158,14 @@ const GlobalStyles = () => (
     }
     .worker-bottom-nav button{
       flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-      gap:4px;padding:10px 0;background:none;border:none;cursor:pointer;
-      font-family:'Syne',sans-serif;font-size:10px;letter-spacing:0.06em;
+      gap:5px;padding:12px 4px;background:none;border:none;cursor:pointer;
+      font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.05em;
       text-transform:uppercase;color:var(--text-3);transition:color 0.2s;
     }
     .worker-bottom-nav button.active{color:var(--gold);}
-    .worker-bottom-nav button .nav-icon{font-size:20px;}
+    .worker-bottom-nav button .nav-icon{font-size:22px;line-height:1;}
 
-    /* ── page padding for bottom nav — no longer needed but kept for safety ── */
+    /* ── page padding ── */
     .page-with-bottom-nav{padding-bottom:16px;}
 
     /* ── responsive grid helpers ── */
@@ -1490,7 +1490,7 @@ export default function App() {
       <GlobalStyles />
       <div style={{ height:"100dvh", display:"flex", flexDirection:"column", background:"var(--ink)", overflow:"hidden" }}>
         <TopNav user={user} onLogout={handleLogout} view={view} setView={setView} />
-        <div style={{ flex:1, overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain" }}>
+        <div style={{ flex:1, minHeight:0, overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--ink)" }}>
           {renderView()}
         </div>
         {/* Worker bottom nav */}
