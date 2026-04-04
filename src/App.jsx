@@ -3,7 +3,7 @@ const LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1B
 
 // ─── INITIAL DATA ─────────────────────────────────────────────────────────────
 const INITIAL_WORKERS = [
-  { id: "w1", name: "Avdyl Sylaj",  pin_code: "1234", role: "Owner", status: "active" },
+  { id: "w1", name: "Avdyl Sylaj",  pin_code: "123456", role: "Owner", status: "active" },
   { id: "w2", name: "Lis Tahiri",   pin_code: "5678", role: "Worker", status: "active" },
   { id: "w3", name: "Eugen Sahiti", pin_code: "9012", role: "Worker", status: "active" },
 ];
@@ -491,10 +491,16 @@ function PinLogin({ onLogin, workers }) {
   const [shakeKey, setShakeKey] = useState(0);
 
   const handleDigit = (d) => {
-    if (pin.length >= 4) return;
+    if (pin.length >= 6) return;
     const next = pin + d;
     setPin(next);
-    if (next.length === 4) setTimeout(() => attempt(next), 120);
+    // At 4 digits: try workers only (not Owner)
+    if (next.length === 4) {
+      const worker = workers.find((w) => w.pin_code === next && w.status === "active" && w.role !== "Owner");
+      if (worker) setTimeout(() => attempt(next), 120);
+    }
+    // At 6 digits: try everyone (owner)
+    if (next.length === 6) setTimeout(() => attempt(next), 120);
   };
 
   const attempt = (p) => {
@@ -512,7 +518,7 @@ function PinLogin({ onLogin, workers }) {
     const onKey = (e) => {
       if (e.key >= "0" && e.key <= "9") handleDigit(e.key);
       else if (e.key === "Backspace") setPin((p) => p.slice(0,-1));
-      else if (e.key === "Enter") setPin((p) => { if (p.length === 4) attempt(p); return p; });
+      else if (e.key === "Enter") setPin((p) => { if (p.length >= 4) attempt(p); return p; });
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -541,7 +547,7 @@ function PinLogin({ onLogin, workers }) {
         <div>
           <p style={{ color:"var(--text-3)", fontSize:11, letterSpacing:"0.12em", textAlign:"center", marginBottom:20 }}>VENDOS KODIN PIN</p>
           <div key={shakeKey} className={error ? "shake" : ""} style={{ display:"flex", gap:16, justifyContent:"center" }}>
-            {Array.from({ length:4 }, (_,i) => (
+            {Array.from({ length:6 }, (_,i) => (
               <div key={i} className={pin.length > i ? "pin-pop" : ""} style={{
                 width:16, height:16, borderRadius:"50%",
                 background: error ? "var(--red)" : pin.length > i ? "var(--gold)" : "var(--ink-5)",
