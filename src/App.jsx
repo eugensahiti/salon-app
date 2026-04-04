@@ -733,7 +733,7 @@ function WorkerLogService({ user, transactions, setTransactions }) {
 
       {/* Confirm modal */}
       {confirmOpen && service && (
-        <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.85)", zIndex:300, display:"flex", alignItems:"flex-end", justifyContent:"center", padding:"0 0 env(safe-area-inset-bottom)" }}>
+        <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.85)", zIndex:1000, display:"flex", alignItems:"flex-end", justifyContent:"center", padding:"0 0 calc(var(--nav-h) + env(safe-area-inset-bottom))" }}>
           <div className="fade-up glass-card" style={{ borderRadius:"20px 20px 0 0", padding:"24px 20px", width:"100%", maxWidth:480, maxHeight:"80dvh", overflowY:"auto" }}>
             <div style={{ width:40, height:4, borderRadius:2, background:"var(--muted-2)", margin:"0 auto 20px" }} />
             <h3 className="font-display" style={{ fontSize:22, marginBottom:8 }}>Konfirmo Transaksionin</h3>
@@ -1490,7 +1490,7 @@ export default function App() {
       <GlobalStyles />
       <div style={{ height:"100dvh", display:"flex", flexDirection:"column", background:"var(--ink)", overflow:"hidden" }}>
         <TopNav user={user} onLogout={handleLogout} view={view} setView={setView} />
-        <div style={{ flex:1, minHeight:0, overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--ink)" }}>
+        <div style={{ flex:1, minHeight:0, overflowY:"auto", overscrollBehavior:"contain", background:"var(--ink)" }}>
           {renderView()}
         </div>
         {/* Worker bottom nav */}
