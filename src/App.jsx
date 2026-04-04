@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 
 // ─── INITIAL DATA ─────────────────────────────────────────────────────────────
 const INITIAL_WORKERS = [
-  { id: "w1", name: "Ardit Krasniqi", pin_code: "1234", role: "Owner", status: "active" },
-  { id: "w2", name: "Besnik Hoxha",   pin_code: "5678", role: "Worker", status: "active" },
-  { id: "w3", name: "Elton Berisha",  pin_code: "9012", role: "Worker", status: "active" },
+  { id: "w1", name: "Avdyl Sylaj",  pin_code: "1234", role: "Owner", status: "active" },
+  { id: "w2", name: "Lis Tahiri",   pin_code: "5678", role: "Worker", status: "active" },
+  { id: "w3", name: "Eugen Sahiti", pin_code: "9012", role: "Worker", status: "active" },
 ];
 
 const SERVICES = [
@@ -187,6 +187,43 @@ const GlobalStyles = () => (
     /* ── staff grid ── */
     .staff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
     @media(max-width:600px){.staff-grid{grid-template-columns:1fr;}}
+
+    /* ── compact top nav on mobile ── */
+    @media(max-width:520px){
+      :root{ --nav-h:46px; }
+      .nav-logo-box{ width:22px !important; height:22px !important; font-size:11px !important; border-radius:5px !important; }
+      .nav-logo-text{ font-size:14px !important; letter-spacing:0.5px !important; }
+      .nav-hamburger{ padding:6px 9px !important; border-radius:7px !important; }
+      .nav-view-label{ font-size:9px !important; padding:3px 0 4px !important; }
+      .nav-safe-top{ padding-top:0 !important; }
+    }
+
+    /* ── archive table → cards on mobile ── */
+    @media(max-width:540px){
+      .archive-table{ display:block !important; }
+      .archive-table thead{ display:none !important; }
+      .archive-table tbody{ display:block !important; }
+      .archive-table tfoot{ display:block !important; }
+      .archive-table tbody tr{
+        display:grid !important;
+        grid-template-columns:1fr auto !important;
+        grid-template-rows:auto auto auto !important;
+        padding:10px 12px !important;
+        gap:3px 8px !important;
+        background:var(--ink-2) !important;
+        border-bottom:1px solid rgba(255,255,255,0.05) !important;
+      }
+      .archive-table tbody tr:nth-child(even){ background:var(--ink-3) !important; }
+      .archive-table td{ display:block !important; padding:0 !important; border:none !important; }
+      .archive-table td.col-datetime{ grid-column:1; grid-row:1; }
+      .archive-table td.col-worker  { grid-column:1; grid-row:2; font-size:13px !important; font-weight:600; }
+      .archive-table td.col-service { grid-column:1/3; grid-row:3; font-size:11px !important; color:var(--text-3) !important; padding-top:3px !important; }
+      .archive-table td.col-price   { grid-column:2; grid-row:1; text-align:right; }
+      .archive-table td.col-pay     { grid-column:2; grid-row:2; display:flex !important; justify-content:flex-end; }
+      .archive-table tfoot tr{ display:flex !important; align-items:center !important; padding:10px 12px !important; }
+      .archive-table tfoot td{ display:block !important; padding:0 !important; }
+      .archive-table tfoot td:first-child{ flex:1 !important; }
+    }
   `}</style>
 );
 
@@ -346,7 +383,7 @@ function TopNav({ user, onLogout, view, setView }) {
 
   return (
     <>
-      <nav style={{
+      <nav className="nav-safe-top" style={{
         background:"var(--ink-2)",
         borderBottom:"1px solid rgba(201,168,76,0.2)",
         position:"sticky", top:0, zIndex:50,
@@ -361,8 +398,8 @@ function TopNav({ user, onLogout, view, setView }) {
         }}>
           {/* Logo */}
           <div style={{ display:"flex", alignItems:"center", gap:8, flexShrink:0 }}>
-            <div style={{ width:30, height:30, borderRadius:6, background:"linear-gradient(135deg,var(--gold-dim),var(--gold))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:15 }}>✂</div>
-            <span className="font-display gold-shimmer" style={{ fontSize:17, fontWeight:700, letterSpacing:1 }}>AS Hair Salon</span>
+            <div className="nav-logo-box" style={{ width:30, height:30, borderRadius:6, background:"linear-gradient(135deg,var(--gold-dim),var(--gold))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:15 }}>✂</div>
+            <span className="font-display gold-shimmer nav-logo-text" style={{ fontSize:17, fontWeight:700, letterSpacing:1 }}>AS Hair Salon</span>
           </div>
 
           <div style={{ flex:1 }} />
@@ -370,6 +407,7 @@ function TopNav({ user, onLogout, view, setView }) {
           {/* Owner: hamburger only */}
           {isOwner && (
             <button
+              className="nav-hamburger"
               onClick={() => setDrawerOpen(true)}
               style={{
                 background:"rgba(201,168,76,0.08)",
@@ -398,7 +436,7 @@ function TopNav({ user, onLogout, view, setView }) {
 
         {/* Owner: active view label under nav */}
         {isOwner && (
-          <div style={{
+          <div className="nav-view-label" style={{
             textAlign:"center",
             padding:"4px 0 6px",
             fontSize:10, letterSpacing:"0.15em", color:"var(--gold)",
@@ -1236,7 +1274,7 @@ function OwnerArchive({ archivedTransactions, getWorker }) {
             </div>
             {isOpen && (
               <div className="slide-down table-wrap" style={{ border:"1px solid rgba(201,168,76,0.12)", borderTop:"none", borderRadius:"0 0 10px 10px", overflow:"hidden" }}>
-                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:"440px" }}>
+                <table className="archive-table" style={{ width:"100%", borderCollapse:"collapse", minWidth:"440px" }}>
                   <thead>
                     <tr style={{ background:"var(--ink-4)", borderBottom:"1px solid rgba(255,255,255,0.05)" }}>
                       {["Data & Ora","Punonjësi","Shërbimi","Çmimi","Pagesa"].map((h) => (
@@ -1250,14 +1288,14 @@ function OwnerArchive({ archivedTransactions, getWorker }) {
                       const svc    = getService(tx.service_id);
                       return (
                         <tr key={tx.id} className="tr-hover" style={{ background: i%2===0 ? "var(--ink-2)" : "var(--ink-3)", borderBottom:"1px solid rgba(255,255,255,0.02)" }}>
-                          <td style={{ padding:"10px 14px" }}>
+                          <td className="col-datetime" style={{ padding:"10px 14px" }}>
                             <div className="font-mono" style={{ fontSize:11, color:"var(--text-2)" }}>{fmtTime(tx.timestamp)}</div>
                             <div style={{ fontSize:9, color:"var(--text-3)", marginTop:1 }}>{fmtDate(tx.timestamp)}</div>
                           </td>
-                          <td style={{ padding:"10px 14px", fontSize:12, color:"var(--text)", fontWeight:500 }}>{worker?.name?.split(" ")[0] ?? "—"}</td>
-                          <td style={{ padding:"10px 14px", fontSize:11, color:"var(--text-2)" }}>{svc?.service_name ?? "—"}</td>
-                          <td style={{ padding:"10px 14px" }}><span className="font-mono" style={{ color:"var(--gold)", fontSize:12 }}>{fmt(tx.total_price)}</span></td>
-                          <td style={{ padding:"10px 14px" }}><PayBadge method={tx.payment_method} /></td>
+                          <td className="col-worker" style={{ padding:"10px 14px", fontSize:12, color:"var(--text)", fontWeight:500 }}>{worker?.name?.split(" ")[0] ?? "—"}</td>
+                          <td className="col-service" style={{ padding:"10px 14px", fontSize:11, color:"var(--text-2)" }}>{svc?.service_name ?? "—"}</td>
+                          <td className="col-price" style={{ padding:"10px 14px" }}><span className="font-mono" style={{ color:"var(--gold)", fontSize:12 }}>{fmt(tx.total_price)}</span></td>
+                          <td className="col-pay" style={{ padding:"10px 14px" }}><PayBadge method={tx.payment_method} /></td>
                         </tr>
                       );
                     })}
