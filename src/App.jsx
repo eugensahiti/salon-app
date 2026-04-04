@@ -96,7 +96,7 @@ const PayBadge = ({ method }) => {
 // ─── GLOBAL STYLES ────────────────────────────────────────────────────────────
 const GlobalStyles = () => (
   <style>{`
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&family=Poppins:wght@400;500;600;700&display=swap');
     :root {
       --gold:#C9A84C; --gold-light:#E8C96A; --gold-dim:#8A6E2F;
       --ink:#0C0C0E; --ink-2:#141416; --ink-3:#1C1C20; --ink-4:#252528; --ink-5:#2F2F34;
@@ -557,7 +557,7 @@ function PinLogin({ onLogin, workers }) {
             ))}
           </div>
         </div>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:10, width:"100%" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,64px)", gap:10, justifyContent:"center" }}>
           {pad.flat().map((d) => (
             <button key={d}
               onClick={() => {
@@ -568,10 +568,11 @@ function PinLogin({ onLogin, workers }) {
               style={{
                 background: d === "✓" ? "rgba(201,168,76,0.15)" : "var(--ink-4)",
                 border:`1px solid ${d === "✓" ? "var(--gold-dim)" : "var(--ink-5)"}`,
-                borderRadius:10, height:58,
+                borderRadius:10, width:64, height:64,
+                display:"flex", alignItems:"center", justifyContent:"center",
                 color: d === "✓" ? "var(--gold)" : "var(--text)",
-                fontSize: d === "←" || d === "✓" ? 20 : 22,
-                cursor:"pointer", fontFamily:"'Syne',sans-serif", fontWeight:600,
+                fontSize:22, lineHeight:1, padding:0,
+                cursor:"pointer", fontFamily:"'Poppins',sans-serif", fontWeight:600,
                 transition:"all 0.15s", touchAction:"manipulation",
               }}
               onMouseEnter={(e) => e.currentTarget.style.background = d === "✓" ? "rgba(201,168,76,0.22)" : "var(--ink-5)"}
