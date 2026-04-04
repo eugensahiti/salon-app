@@ -4,8 +4,8 @@ const LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1B
 // ─── INITIAL DATA ─────────────────────────────────────────────────────────────
 const INITIAL_WORKERS = [
   { id: "w1", name: "Avdyl Sylaj",  pin_code: "123456", role: "Owner", status: "active" },
-  { id: "w2", name: "Lis Tahiri",   pin_code: "5678", role: "Worker", status: "active" },
-  { id: "w3", name: "Eugen Sahiti", pin_code: "9012", role: "Worker", status: "active" },
+  { id: "w2", name: "Lis Tahiri",   pin_code: "6969", role: "Worker", status: "active" },
+  { id: "w3", name: "Eugen Sahiti", pin_code: "9565", role: "Worker", status: "active" },
 ];
 
 const SERVICES = [
@@ -579,13 +579,7 @@ function PinLogin({ onLogin, workers }) {
             >{d}</button>
           ))}
         </div>
-        <div style={{ textAlign:"center" }}>
-          <p style={{ color:"var(--text-3)", fontSize:11, letterSpacing:"0.08em" }}>
-            Demo: Pronar <span style={{ color:"var(--gold)", fontFamily:"'Syne Mono',monospace" }}>1234</span>
-            {" "}· Punonjës <span style={{ color:"var(--blue)", fontFamily:"'Syne Mono',monospace" }}>5678</span>
-            {" "}/ <span style={{ color:"var(--blue)", fontFamily:"'Syne Mono',monospace" }}>9012</span>
-          </p>
-        </div>
+    
       </div>
     </div>
   );
